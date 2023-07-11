@@ -7,10 +7,11 @@ import lombok.*;
 @AllArgsConstructor
 @Getter
 @Setter
+@Builder
 public class PostOutDto {
     private Long id;
     private String author;
     private String content;
-    private OffsetDateTime date;
+    private OffsetDateTime createdDate;
     private Long viewCount;
 }

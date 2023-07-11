@@ -7,7 +7,7 @@ import pl.socials.dto.PostOutDto;
 public interface PostService {
     PostOutDto getPost(Long id);
 
-    List<PostOutDto> getPosts();
+    List<PostOutDto> getPosts(int page, int size, String sortBy, boolean asc);
 
     PostOutDto createPost(PostInDto postInDto);
 

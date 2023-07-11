@@ -23,13 +23,14 @@ public class PostController {
 
     @GetMapping("")
     public ResponseEntity<List<PostOutDto>> getPosts() {
-        return ResponseEntity.ok(postService.getPosts());
+        return ResponseEntity.ok(postService.getPosts(0, 10, "viewCount", false));
     }
 
     @PostMapping("")
+    @ResponseBody
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<PostOutDto> createPost(@RequestBody PostInDto postInDto) {
-        return ResponseEntity.ok(postService.createPost(postInDto));
+    public PostOutDto createPost(@RequestBody PostInDto postInDto) {
+        return postService.createPost(postInDto);
     }
 
     @PatchMapping("{id}")

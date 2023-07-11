@@ -26,14 +26,14 @@ public class Post {
     private String content;
 
     @Column(name = "date", nullable = false)
-    private OffsetDateTime date;
+    private OffsetDateTime createdDate;
 
     @Column(name = "viewCount", nullable = false)
     private Long viewCount;
 
     @PrePersist
     protected void onCreate() {
-        this.date = OffsetDateTime.now();
+        this.createdDate = OffsetDateTime.now();
         this.viewCount = 0L;
     }
 }
