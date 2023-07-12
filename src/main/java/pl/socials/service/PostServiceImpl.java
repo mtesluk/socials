@@ -3,9 +3,12 @@ package pl.socials.service;
 import jakarta.transaction.Transactional;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import pl.socials.controller.PostController;
 import pl.socials.dto.PostInDto;
 import pl.socials.dto.PostOutDto;
 import pl.socials.exception.InvalidRequestException;
@@ -23,27 +26,38 @@ public class PostServiceImpl implements PostService {
 
     private final PostRepository postRepository;
     private final PostMapper postMapper;
+    private final Logger logger = LoggerFactory.getLogger(PostController.class);
 
     @Override
     public PostOutDto getPost(Long id) {
+        logger.info(String.format("PostServiceImpl:getPost START %s", id));
+
         Post post = postRepository.findById(id).orElseThrow(() -> new NotFoundException(EXC_MSG_POST_NOT_FOUND));
+
+        logger.debug(String.format("PostServiceImpl:getPost 1 %s", post.toString()));
 
         return postMapper.toPostDto(post);
     }
 
     @Override
     public List<PostOutDto> getPosts(int page, int size, String sortBy, boolean asc) {
+        logger.info(String.format("PostServiceImpl:getPosts START %s %s %s %s", page, size, sortBy, asc));
+
         Sort sort = asc ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
 
         // maybe native sql would be better, to cut down unnecessary request for count
         List<Post> posts =
                 postRepository.findAll(PageRequest.of(page, size, sort)).getContent();
 
+        logger.info(String.format("PostServiceImpl:getPosts 1 %s", posts.toString()));
+
         return postMapper.toPostDtoList(posts);
     }
 
     @Override
     public PostOutDto createPost(PostInDto postInDto) {
+        logger.info(String.format("PostServiceImpl:createPost START %s", postInDto.toString()));
+
         Post post = Post.builder()
                 .author(postInDto.getAuthor())
                 .content(postInDto.getContent())
@@ -55,13 +69,17 @@ public class PostServiceImpl implements PostService {
     @Override
     @Transactional
     public void updatePost(Long id, PostInDto postInDto) {
-        if (postInDto == null || (postInDto.getContent() == null && postInDto.getAuthor() == null))
+        logger.info(String.format("PostServiceImpl:updatePost START %s %s", id, postInDto.toString()));
+
+        if (postInDto.getContent() == null && postInDto.getAuthor() == null)
             throw new InvalidRequestException(EXC_MSG_POST_UPD_WRONG_DATA);
         postRepository.updateContentAndAuthor(id, postInDto.getContent(), postInDto.getAuthor());
     }
 
     @Override
     public void deletePost(Long id) {
+        logger.info(String.format("PostServiceImpl:deletePost START %s", id));
+
         postRepository.deleteById(id);
     }
 }
