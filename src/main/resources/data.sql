@@ -38,7 +38,7 @@ INSERT INTO POST (ID, AUTHOR, DATE, VIEW_COUNT, CONTENT)
 VALUES (-88, 'Author 6', '2023-03-23 12:44:00', 10234, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu');
 
 INSERT INTO POST (ID, AUTHOR, DATE, VIEW_COUNT, CONTENT)
-VALUES (-87, 'Author 6', '2023-03-03 05:00:00', 555, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu');
+VALUES (-87, 'Author 6', '2023-03-03 05:00:00', 10100, 'Lorem ipsum dolor s');
 
 INSERT INTO POST (ID, AUTHOR, DATE, VIEW_COUNT, CONTENT)
 VALUES (-86, 'Author 10', '2023-03-03 05:00:00', 2, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu');

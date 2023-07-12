@@ -68,9 +68,9 @@ public class PostServiceTest extends PostBaseTest {
 
             // assert
             assertEquals(post.getAuthor(), author);
-            assertEquals(post.getContent(), CONTENT);
+            assertEquals(post.getContent(), CONTENT.substring(0, 17).concat("..."));
             assertEquals(post.getId(), POST_ID);
-            assertEquals(post.getViewCount(), VIEW_COUNT);
+            assertEquals(post.getViewCount(), VIEW_COUNT + 1);
             assertEquals(post.getCreatedDate(), DATE);
         }
     }
@@ -84,7 +84,7 @@ public class PostServiceTest extends PostBaseTest {
             // when
             Post postEntity = getPostEntity().build();
             Post postEntity2 = getPostEntity()
-                    .author("AUTHOR 2")
+                    .author(AUTHOR.concat(" NEW"))
                     .viewCount(VIEW_COUNT + 10)
                     .build();
             List<Post> providedPosts = List.of(postEntity2, postEntity);
@@ -119,7 +119,9 @@ public class PostServiceTest extends PostBaseTest {
 
             // assert
             assertEquals(createdPost.getAuthor(), postInDto.getAuthor());
-            assertEquals(createdPost.getContent(), postInDto.getContent());
+            assertEquals(
+                    createdPost.getContent(),
+                    postInDto.getContent().substring(0, 17).concat("..."));
             verify(postRepository, times(1)).save(any());
         }
     }

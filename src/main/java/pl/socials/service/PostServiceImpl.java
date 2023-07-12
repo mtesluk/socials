@@ -1,6 +1,5 @@
 package pl.socials.service;
 
-import jakarta.transaction.Transactional;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -8,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pl.socials.controller.PostController;
 import pl.socials.dto.PostInDto;
 import pl.socials.dto.PostOutDto;
@@ -21,20 +21,22 @@ import pl.socials.repository.PostRepository;
 @RequiredArgsConstructor
 public class PostServiceImpl implements PostService {
 
-    public static final String EXC_MSG_POST_NOT_FOUND = "Post not found";
-    public static final String EXC_MSG_POST_UPD_WRONG_DATA = "No content and author";
+    public static final String EXC_MSG_POST_NOT_FOUND = "The post not found";
+    public static final String EXC_MSG_POST_UPD_WRONG_DATA = "No content and author to update the posts=";
 
     private final PostRepository postRepository;
     private final PostMapper postMapper;
     private final Logger logger = LoggerFactory.getLogger(PostController.class);
 
     @Override
+    @Transactional
     public PostOutDto getPost(Long id) {
         logger.info(String.format("PostServiceImpl:getPost START %s", id));
 
         Post post = postRepository.findById(id).orElseThrow(() -> new NotFoundException(EXC_MSG_POST_NOT_FOUND));
+        post.setViewCount(post.getViewCount() + 1);
 
-        logger.debug(String.format("PostServiceImpl:getPost 1 %s", post.toString()));
+        logger.debug(String.format("PostServiceImpl:getPost 1 %s", post));
 
         return postMapper.toPostDto(post);
     }
@@ -49,7 +51,7 @@ public class PostServiceImpl implements PostService {
         List<Post> posts =
                 postRepository.findAll(PageRequest.of(page, size, sort)).getContent();
 
-        logger.info(String.format("PostServiceImpl:getPosts 1 %s", posts.toString()));
+        logger.info(String.format("PostServiceImpl:getPosts 1 %s", posts));
 
         return postMapper.toPostDtoList(posts);
     }

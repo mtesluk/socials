@@ -56,7 +56,9 @@ public class PostControllerTest extends PostBaseTest {
                     .isEqualTo(HttpStatus.OK)
                     .expectBody()
                     .jsonPath("$.author")
-                    .isEqualTo("Author 1");
+                    .isEqualTo("Author 1")
+                    .jsonPath("$.viewCount")
+                    .isEqualTo(101);
         }
     }
 
@@ -158,7 +160,7 @@ public class PostControllerTest extends PostBaseTest {
                     .jsonPath("$.author")
                     .isEqualTo(AUTHOR)
                     .jsonPath("$.content")
-                    .isEqualTo(CONTENT);
+                    .isEqualTo(CONTENT.substring(0, 17).concat("..."));
         }
     }
 }

@@ -7,7 +7,7 @@ import pl.socials.model.Post;
 public class PostBaseTest {
     protected static final Long POST_ID = 1L;
     protected static final String AUTHOR = "AUTHOR 1000";
-    protected static final String CONTENT = "TEXT";
+    protected static final String CONTENT = "TEXT TEXT TEXT TEXT TEXT TEXT";
     protected static final Long VIEW_COUNT = 12L;
     protected static final OffsetDateTime DATE = OffsetDateTime.now();
 
