@@ -160,7 +160,7 @@ public class PostControllerTest extends PostBaseTest {
                     .jsonPath("$.author")
                     .isEqualTo(AUTHOR)
                     .jsonPath("$.content")
-                    .isEqualTo(CONTENT.substring(0, 17).concat("..."));
+                    .isEqualTo(CONTENT);
         }
     }
 }

@@ -68,7 +68,7 @@ public class PostServiceTest extends PostBaseTest {
 
             // assert
             assertEquals(post.getAuthor(), author);
-            assertEquals(post.getContent(), CONTENT.substring(0, 17).concat("..."));
+            assertEquals(post.getContent(), CONTENT);
             assertEquals(post.getId(), POST_ID);
             assertEquals(post.getViewCount(), VIEW_COUNT + 1);
             assertEquals(post.getCreatedDate(), DATE);
@@ -97,6 +97,8 @@ public class PostServiceTest extends PostBaseTest {
             // assert
             assertEquals(expectedPosts.size(), 2);
             assertEquals(expectedPosts.get(1).getAuthor(), AUTHOR);
+            assertEquals(
+                    expectedPosts.get(1).getContent(), CONTENT.substring(0, 17).concat("..."));
         }
     }
 
@@ -119,9 +121,7 @@ public class PostServiceTest extends PostBaseTest {
 
             // assert
             assertEquals(createdPost.getAuthor(), postInDto.getAuthor());
-            assertEquals(
-                    createdPost.getContent(),
-                    postInDto.getContent().substring(0, 17).concat("..."));
+            assertEquals(createdPost.getContent(), postInDto.getContent());
             verify(postRepository, times(1)).save(any());
         }
     }
